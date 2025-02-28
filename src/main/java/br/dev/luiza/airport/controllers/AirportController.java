@@ -1,5 +1,6 @@
 package br.dev.luiza.airport.controllers;
 
+import br.dev.luiza.airport.DTO.AirportMinDTO;
 import br.dev.luiza.airport.entities.Airport;
 import br.dev.luiza.airport.services.AirportServices;
 import java.util.List;
@@ -33,6 +34,17 @@ public class AirportController {
         }
     }
     
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName){
+        
+        List<AirportMinDTO> result = airportServices.findByCountry(countryName);
+        if (result.isEmpty()) {
+            return ResponseEntity.notFound().build();
+             
+        }else{
+            return ResponseEntity.ok(result);
+        }
+    }
     
     
 }
